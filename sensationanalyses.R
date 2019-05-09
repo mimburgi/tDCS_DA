@@ -1,11 +1,17 @@
-setwd("C://Users//Mike//Desktop//DAdat")
+setwd("C://Users//Mike//Desktop//School//DAdat")
 sensation<-read.csv("sensation.csv", stringsAsFactors = FALSE)
 sensation<-subset(sensation, Subject.Number != 44 & Subject.Number != 47 & Subject.Number != 50)
 
 anodalsubnums<-c(34,36,38,40,42,46,48,50,52,55,56,58,60,62,64,66)
 
+
+
 sensation$condition<-"S"
 sensation$condition[sensation$Subject.Number %in% anodalsubnums]<-"A"
+
+sensation[,c(2:9,12)]
+aggregate(Fatigue~ condition, data = sensation, FUN = sd)
+
 sensation$totalsensation<-rowMeans(sensation[,c("Itching", "Pain", "Burning", "Warmth.Heat", "Pinching", "Metallic.Iron.Taste", "Fatigue")])
 t.test(Itching ~ condition, data = sensation)
 t.test(Pain ~ condition, data = sensation)
